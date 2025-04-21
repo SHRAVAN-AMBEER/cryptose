@@ -14,7 +14,8 @@ import UserDashboard from "./pages/UserDashboard";
 import CryptoGraph from "./CryptoGraph";
 import CryptoComparator from "./pages/CryptoComparator";
 import CryptoList from "./pages/CryptoList";
-
+import CoinGraph from "./pages/CoinGraph";
+import CompareGraph from "./pages/CompareGraph";
 
 function App() {
   return (
@@ -35,6 +36,10 @@ function App() {
         <Route path="/MemberDashboard" element={<MemberDashboard />} />
         <Route path="/compare" element={<CryptoComparator />} />
         <Route path="/cryptos" element={<CryptoList />} />
+        <Route path="/coin/:id" element={<CoinGraph />} />
+        <Route path="/compare-graph" element={<CompareGraph />} />
+        
+
 
       </Routes>
     </Router>

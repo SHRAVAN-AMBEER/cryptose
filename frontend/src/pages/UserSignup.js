@@ -3,20 +3,44 @@ import { useNavigate } from "react-router-dom";
 
 const UserSignup = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: ""
+  });
 
-  const handleSignup = () => {
-    if (!email || !password) {
-      alert("Please enter valid email and password!");
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSignup = async () => {
+    const { username, email, password } = formData;
+
+    if (!email || !password || !username) {
+      alert("Please fill all fields!");
       return;
     }
 
-    // Save admin credentials to localStorage
-    localStorage.setItem("user", JSON.stringify({ email, password, role: "User" }));
+    try {
+      const response = await fetch("http://localhost:5000/register/user", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData)
+      });
 
-    alert("User Signup Successful!");
-    navigate("/login"); // Redirect to login page
+      const data = await response.json();
+      alert(data.message || "User registered!");
+
+      // Store locally (optional)
+      localStorage.setItem("user", JSON.stringify({ email, password, role: "User" }));
+
+      navigate("/login"); // Redirect to login
+    } catch (err) {
+      alert("Signup failed!");
+      console.error(err);
+    }
   };
 
   return (
@@ -26,17 +50,27 @@ const UserSignup = () => {
           User Signup
         </h2>
         <input
+          type="text"
+          name="username"
+          placeholder="👤 Full Name"
+          value={formData.username}
+          onChange={handleChange}
+          className="w-full p-3 mb-4 bg-gray-800 text-white border border-gray-600 rounded-lg"
+        />
+        <input
           type="email"
+          name="email"
           placeholder="📧 Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={formData.email}
+          onChange={handleChange}
           className="w-full p-3 mb-4 bg-gray-800 text-white border border-gray-600 rounded-lg"
         />
         <input
           type="password"
+          name="password"
           placeholder="🔑 Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={formData.password}
+          onChange={handleChange}
           className="w-full p-3 mb-4 bg-gray-800 text-white border border-gray-600 rounded-lg"
         />
         <button

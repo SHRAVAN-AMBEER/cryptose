@@ -3,45 +3,77 @@ import { useNavigate } from "react-router-dom";
 
 const MemberSignup = () => {
   const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    password: ""
+  });
 
-  const handleSignup = () => {
-    if (!email || !password) {
-      alert("Please enter valid email and password!");
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSignup = async () => {
+    const { username, email, password } = formData;
+
+    if (!email || !password || !username) {
+      alert("Please fill all fields!");
       return;
     }
 
-    // Save admin credentials to localStorage
-    localStorage.setItem("member", JSON.stringify({ email, password, role: "Member" }));
+    try {
+      const response = await fetch("http://localhost:5000/register/member", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData)
+      });
 
-    alert("Member Signup Successful!");
-    navigate("/login"); // Redirect to login page
+      const data = await response.json();
+      alert(data.message || "Member registered!");
+
+      localStorage.setItem("member", JSON.stringify({ email, password, role: "Member" }));
+      navigate("/login");
+    } catch (err) {
+      alert("Signup failed!");
+      console.error(err);
+    }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-700 text-white p-6">
       <div className="bg-gray-900 p-8 rounded-lg shadow-lg w-full max-w-md border border-gray-700">
-        <h2 className="text-3xl font-extrabold text-center mb-6 bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-blue-600">
+        <h2 className="text-3xl font-extrabold text-center mb-6 bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-teal-500">
           Member Signup
         </h2>
         <input
+          type="text"
+          name="username"
+          placeholder="👤 Full Name"
+          value={formData.username}
+          onChange={handleChange}
+          className="w-full p-3 mb-4 bg-gray-800 text-white border border-gray-600 rounded-lg"
+        />
+        <input
           type="email"
+          name="email"
           placeholder="📧 Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={formData.email}
+          onChange={handleChange}
           className="w-full p-3 mb-4 bg-gray-800 text-white border border-gray-600 rounded-lg"
         />
         <input
           type="password"
+          name="password"
           placeholder="🔑 Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={formData.password}
+          onChange={handleChange}
           className="w-full p-3 mb-4 bg-gray-800 text-white border border-gray-600 rounded-lg"
         />
         <button
           onClick={handleSignup}
-          className="w-full bg-blue-600 text-white py-3 rounded-lg shadow-lg hover:bg-blue-700 transition transform hover:scale-105"
+          className="w-full bg-green-600 text-white py-3 rounded-lg shadow-lg hover:bg-green-700 transition transform hover:scale-105"
         >
           ✅ Signup
         </button>
