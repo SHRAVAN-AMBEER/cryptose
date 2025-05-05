@@ -108,7 +108,7 @@ function MemberDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-900 p-6">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-[95%] mx-auto dashboard-container">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-white">👑 Member Dashboard</h1>
           <div className="space-x-4">
@@ -141,8 +141,8 @@ function MemberDashboard() {
           </div>
         )}
 
-        <div className="bg-gray-800 rounded-xl shadow-xl overflow-hidden">
-          <table className="w-full">
+        <div className="bg-gray-800 rounded-xl shadow-xl overflow-x-auto"> {/* Added overflow-x-auto */}
+          <table className="dashboard-table"> {/* Added min-w-max */}
             <thead className="bg-gray-700">
               <tr>
                 <th className="py-3 px-4 text-left">Select</th>

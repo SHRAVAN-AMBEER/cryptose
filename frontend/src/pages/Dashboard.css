@@ -1,7 +1,8 @@
 .dashboard-container {
     padding: 2rem;
-    max-width: 600px;
+    width: 100%;
     margin: auto;
+    overflow-x: auto;
     text-align: center;
     font-family: Arial, sans-serif;
   }
@@ -13,8 +14,10 @@
   }
   
   .dashboard-table {
+    min-width: 1200px;
     width: 100%;
-    border-collapse: collapse;
+    border-collapse: separate;
+    border-spacing: 0;
     margin-top: 1rem;
     background-color: #f1f5f9;
     border-radius: 10px;
@@ -25,8 +28,58 @@
   .dashboard-table th,
   .dashboard-table td {
     border: 1px solid #cbd5e1;
-    padding: 12px;
+    padding: 12px 16px;
     font-size: 1.1rem;
+    white-space: nowrap;
+  }
+  
+  /* Specific column widths */
+  .dashboard-table th:nth-child(1),
+  .dashboard-table td:nth-child(1) { /* Select column */
+    width: 80px;
+    min-width: 80px;
+  }
+  
+  .dashboard-table th:nth-child(2),
+  .dashboard-table td:nth-child(2) { /* Name column */
+    width: 200px;
+    min-width: 200px;
+  }
+  
+  .dashboard-table th:nth-child(3),
+  .dashboard-table td:nth-child(3) { /* Price column */
+    width: 150px;
+    min-width: 150px;
+  }
+  
+  .dashboard-table th:nth-child(4),
+  .dashboard-table td:nth-child(4) { /* Market Cap column */
+    width: 200px;
+    min-width: 200px;
+  }
+  
+  .dashboard-table th:nth-child(5),
+  .dashboard-table td:nth-child(5) { /* 24h Change column */
+    width: 120px;
+    min-width: 120px;
+  }
+  
+  .dashboard-table th:nth-child(6),
+  .dashboard-table td:nth-child(6) { /* Status column */
+    width: 120px;
+    min-width: 120px;
+  }
+  
+  .dashboard-table th:nth-child(7),
+  .dashboard-table td:nth-child(7) { /* Volume column */
+    width: 180px;
+    min-width: 180px;
+  }
+  
+  .dashboard-table th:nth-child(8),
+  .dashboard-table td:nth-child(8) { /* All-Time High column */
+    width: 150px;
+    min-width: 150px;
   }
   
   .dashboard-table th {
@@ -42,4 +95,3 @@
     border-radius: 12px;
     margin-left: 8px;
   }
-  
