@@ -183,15 +183,5 @@ Contributions are welcome. Suggested workflow:
 
 Please avoid committing `node_modules` or any secret keys.
 
----
 
-## License
-If you don’t have a license yet, consider using the MIT License. Let me know if you want me to add a LICENSE file.
-
----
-
-If you'd like, I can also:
-- Add example curl / Postman requests for key endpoints
-- Add Docker and docker-compose files for local development
-- Add password hashing and JWT examples
 
